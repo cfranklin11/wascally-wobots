@@ -2,13 +2,10 @@ import Config
 
 # Configure your database
 config :wascally_wobots, WascallyWobots.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "wascally_wobots_dev",
+  database: Path.expand("../wascally_wobots_dev.db", Path.dirname(__ENV__.file)),
+  pool_size: 5,
   stacktrace: true,
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+  show_sensitive_data_on_connection_error: true
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
@@ -23,10 +20,10 @@ config :wascally_wobots, WascallyWobotsWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "AUVQ9s/dSFfzO6iLY6/Q+nFoRxb26Y8hc1igIZS3hqTUhAhFppDcDvyTX2BjTgja",
+  secret_key_base: "7zg1uJmSRqHa7QIMj7e9IpMCwQRc2eJeszGQrT5Jp/rWPrnplyiBXDM8+qLEG3Wi",
   watchers: [
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
-    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
+    esbuild: {Esbuild, :install_and_run, [:wascally_wobots, ~w(--sourcemap=inline --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:wascally_wobots, ~w(--watch)]}
   ]
 
 # ## SSL Support
@@ -56,7 +53,7 @@ config :wascally_wobots, WascallyWobotsWeb.Endpoint,
 config :wascally_wobots, WascallyWobotsWeb.Endpoint,
   live_reload: [
     patterns: [
-      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"priv/static/(?!uploads/).*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/wascally_wobots_web/(controllers|live|components)/.*(ex|heex)$"
     ]
@@ -74,6 +71,9 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+# Include HEEx debug annotations as HTML comments in rendered markup
+config :phoenix_live_view, :debug_heex_annotations, true
 
 # Disable swoosh api client as it is only required for production adapters.
 config :swoosh, :api_client, false
