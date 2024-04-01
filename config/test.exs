@@ -6,18 +6,15 @@ import Config
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :wascally_wobots, WascallyWobots.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "wascally_wobots_test#{System.get_env("MIX_TEST_PARTITION")}",
-  pool: Ecto.Adapters.SQL.Sandbox,
-  pool_size: 10
+  database: Path.expand("../wascally_wobots_test.db", Path.dirname(__ENV__.file)),
+  pool_size: 5,
+  pool: Ecto.Adapters.SQL.Sandbox
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
 config :wascally_wobots, WascallyWobotsWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "rG2ZaWQ9TdF5iRoSoMdTgNvTuAE+IjKxd3QAVOl/2r6Xx20ZHaQltz+Ypd/yCq5K",
+  secret_key_base: "K+CyDYR6EGW5DbTOREcuG4jC7HXCss3bLI/dcjzoZ6We1U0oYCg9IXcaEpeWL0DV",
   server: false
 
 # In test we don't send emails.

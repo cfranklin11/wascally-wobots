@@ -35,3 +35,7 @@ wascally_wobots-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# Database files
+*.db
+*.db-*
+

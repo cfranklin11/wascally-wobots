@@ -7,11 +7,13 @@ defmodule WascallyWobotsWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_wascally_wobots_key",
-    signing_salt: "5ZBkzZC4",
+    signing_salt: "64/vslRd",
     same_site: "Lax"
   ]
 
-  socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
+  socket "/live", Phoenix.LiveView.Socket,
+    websocket: [connect_info: [session: @session_options]],
+    longpoll: [connect_info: [session: @session_options]]
 
   # Serve at "/" the static files from "priv/static" directory.
   #
