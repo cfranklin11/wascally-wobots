@@ -41,3 +41,8 @@ example
 # generated native folders
 /ios
 /android
+# react-native-config codegen
+ios/tmp.xcconfig
+
+# secrets
+.env
