@@ -21,9 +21,11 @@ defmodule WascallyWobotsWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", WascallyWobotsWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", WascallyWobotsWeb do
+    pipe_through :api
+
+    get "/hello", HelloController, :hello
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:wascally_wobots, :dev_routes) do
